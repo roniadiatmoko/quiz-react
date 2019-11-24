@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/quiz-react/static/css/main.b100e6da.chunk.css",
+    "main.js": "/quiz-react/static/js/main.b519cfd1.chunk.js",
+    "main.js.map": "/quiz-react/static/js/main.b519cfd1.chunk.js.map",
+    "runtime-main.js": "/quiz-react/static/js/runtime-main.37474a1e.js",
+    "runtime-main.js.map": "/quiz-react/static/js/runtime-main.37474a1e.js.map",
+    "static/css/2.ed222cd9.chunk.css": "/quiz-react/static/css/2.ed222cd9.chunk.css",
+    "static/js/2.e520dee2.chunk.js": "/quiz-react/static/js/2.e520dee2.chunk.js",
+    "static/js/2.e520dee2.chunk.js.map": "/quiz-react/static/js/2.e520dee2.chunk.js.map",
+    "index.html": "/quiz-react/index.html",
+    "precache-manifest.1fa8c730dc4aa7d9e5a1d03e10a8fae8.js": "/quiz-react/precache-manifest.1fa8c730dc4aa7d9e5a1d03e10a8fae8.js",
+    "service-worker.js": "/quiz-react/service-worker.js",
+    "static/css/2.ed222cd9.chunk.css.map": "/quiz-react/static/css/2.ed222cd9.chunk.css.map",
+    "static/css/main.b100e6da.chunk.css.map": "/quiz-react/static/css/main.b100e6da.chunk.css.map",
+    "static/media/semantic.min.css": "/quiz-react/static/media/outline-icons.ef60a4f6.woff",
+    "static/media/logo.svg": "/quiz-react/static/media/logo.25bf045c.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.37474a1e.js",
+    "static/css/2.ed222cd9.chunk.css",
+    "static/js/2.e520dee2.chunk.js",
+    "static/css/main.b100e6da.chunk.css",
+    "static/js/main.b519cfd1.chunk.js"
+  ]
+}
