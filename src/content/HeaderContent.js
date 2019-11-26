@@ -17,9 +17,7 @@ class HeaderContent extends React.Component{
 			jawabSementara: 0, //jawaban yang diketik
 			pengecekan: '', //jawabn benar/salah
 			nickname: '',
-			highScore: [
-				{'name': '','score': '','time': ''},
-			],
+			highScore: [],
 		}
 	}
 
@@ -55,17 +53,7 @@ class HeaderContent extends React.Component{
 			angka1: Math.floor(Math.random() * 100),
 			angka2: Math.floor(Math.random() * 100),
 		})
-	}
-
-	saveToArray(arr){
-		var highScoreData = [
-								{
-									'name': this.state.nickname,
-									'score': this.state.score,
-									'time': this.state.time
-								}
-							]
-	}
+	}	
 
 	cek(e){
 		e.preventDefault()
@@ -78,6 +66,8 @@ class HeaderContent extends React.Component{
 									'score': this.state.score,
 									'time': this.state.time}])
 			})
+
+			let highScoreState = this.state.highScore								
 
 			this.setState({
 				quiz: 3,
@@ -113,8 +103,6 @@ class HeaderContent extends React.Component{
 				soal: this.state.soal + 1,
 			})
 		}
-		//
-
 	}
 
 	componentWillUnmount(){
