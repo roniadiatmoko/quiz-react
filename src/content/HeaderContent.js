@@ -1,5 +1,7 @@
 import React from 'react'
-import {Header, Icon, Image, Progress, Input, Button, Divider, Table} from 'semantic-ui-react'
+import {Header, Icon, Image, Progress, Input, Button, Divider, Item} from 'semantic-ui-react'
+
+import HighScore from './HighScore'
 
 class HeaderContent extends React.Component{
 	constructor(){
@@ -15,6 +17,9 @@ class HeaderContent extends React.Component{
 			jawabSementara: 0, //jawaban yang diketik
 			pengecekan: '', //jawabn benar/salah
 			nickname: '',
+			highScore: [
+				{'name': '','score': '','time': ''},
+			],
 		}
 	}
 
@@ -52,10 +57,28 @@ class HeaderContent extends React.Component{
 		})
 	}
 
+	saveToArray(arr){
+		var highScoreData = [
+								{
+									'name': this.state.nickname,
+									'score': this.state.score,
+									'time': this.state.time
+								}
+							]
+	}
+
 	cek(e){
 		e.preventDefault()
-		//if soal sudah 10
+		//if soal sudah 10 soal maka selesai
 		if(this.state.soal == 10){
+			//simpan ke array highscore
+			this.setState({
+				'highScore': this.state.highScore.concat([{
+									'name': this.state.nickname,
+									'score': this.state.score,
+									'time': this.state.time}])
+			})
+
 			this.setState({
 				quiz: 3,
 				soal: 1, //soalke
@@ -63,10 +86,11 @@ class HeaderContent extends React.Component{
 				time: 0, //detik
 				angka1: 0, //soal
 				angka2: 0, //soal
-				score: 0,
 				jawabSementara: 0, //jawaban yang diketik
 				pengecekan: '',
 			})
+
+
 		}else{
 
 			let jawaban = this.state.angka1 + this.state.angka2;
@@ -112,10 +136,6 @@ class HeaderContent extends React.Component{
 		})		
 	}
 
-	componentDidMount(){
-
-	}
-
 	render(){
 		return(
 			<div>
@@ -126,6 +146,7 @@ class HeaderContent extends React.Component{
 			    />
 			    <div style={{textAlign:"center", display: this.state.quiz == 0 || this.state.quiz == 2 ? "none" : ""}}>
 			    	<div style={{display: this.state.quiz == 3 ? 'none' : ''}}>
+			    		<Header as="h1">Happy Counting: {this.state.nickname}</Header>
 				    	<Header as='h2'>{this.state.time}</Header>
 				    	<Progress percent={this.state.percent} indicating >{this.state.soal}/10 </Progress>
 					    <Header as='h1'>{this.state.angka1} + {this.state.angka2}</Header>
@@ -150,7 +171,7 @@ class HeaderContent extends React.Component{
 			    <br/><br/><br/>
 				<Divider />
 				<div  style={{textAlign: "center"}}>
-				 	<Input autoFocus icon='user' iconPosition='left' placeholder='Input Nickname' onChange={(e) => this.inputNickname(e)}/> 
+				 	<Input autoFocus icon='user' style={{'display': this.state.quiz != 0 ? 'none' : ''}} iconPosition='left' placeholder='Input Nickname' onChange={(e) => this.inputNickname(e)}/> 
 				 	&nbsp;
 					<Button disabled={this.state.nickname == '' ? 'disabled' : null} icon  primary  labelPosition="left" onClick={() => this.state.quiz == 0 || this.state.quiz == 3 ? this.start() : this.state.quiz == 1 ? this.pause() : this.resume() }>
 				      <Icon name= {this.state.quiz === 0 || this.state.quiz == 3 ? 'play' : this.state.quiz === 1 ? 'pause' : this.state.quiz === 2 ? 'play' : ''} />
@@ -159,28 +180,7 @@ class HeaderContent extends React.Component{
 			    </div>
 
 			    <br/><br/>
-			    <div style={{textAlign: "center"}}>
-			    	<Header as="h3">HighScore</Header>
-			    	<Table stackable>
-					    <Table.Header>
-					      <Table.Row>
-					      	<Table.HeaderCell>#</Table.HeaderCell>
-					        <Table.HeaderCell>Name</Table.HeaderCell>
-					        <Table.HeaderCell>Score</Table.HeaderCell>
-					        <Table.HeaderCell>Time</Table.HeaderCell>
-					      </Table.Row>
-					    </Table.Header>
-
-					    <Table.Body>
-					      <Table.Row>
-					      	<Table.Cell>1</Table.Cell>
-					        <Table.Cell>John</Table.Cell>
-					        <Table.Cell>10</Table.Cell>
-					        <Table.Cell>100 s</Table.Cell>
-					      </Table.Row>
-					    </Table.Body>
-					  </Table>
-			    </div>
+			    <HighScore data={this.state.highScore} />
 			</div>
 		)
 	}
