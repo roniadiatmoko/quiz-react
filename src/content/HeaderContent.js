@@ -163,6 +163,7 @@ class HeaderContent extends React.Component{
 					</div>
 
 					<Header as='h3'>Score: {this.state.score}</Header>
+					<Header as='h3' style={{'display': this.state.quiz == 3 ? '' : 'none'}}>Time: {this.state.quiz == 3 ? this.state.highScore[0]['time'] : null}</Header>
 					
 			    </div>
 
