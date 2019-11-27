@@ -22,7 +22,6 @@ class HeaderContent extends React.Component{
 	}
 
 	start(){
-		document.getElementById("f").focus()
 
 		this.setState({
 			quiz: 1,
@@ -57,9 +56,19 @@ class HeaderContent extends React.Component{
 
 	cek(e){
 		e.preventDefault()
+
+		let jawaban = this.state.angka1 + this.state.angka2;
 		//if soal sudah 10 soal maka selesai
 		if(this.state.soal == 10){
 			//simpan ke array highscore
+			
+			if (parseInt(this.state.jawabSementara) === jawaban) {
+				this.setState({
+					pengecekan: 'Benar',
+					score: this.state.score + 10,
+				})
+			}
+
 			this.setState({
 				'highScore': this.state.highScore.concat([{
 									'name': this.state.nickname,
@@ -83,8 +92,6 @@ class HeaderContent extends React.Component{
 
 		}else{
 
-			let jawaban = this.state.angka1 + this.state.angka2;
-
 			this.setState({
 					pengecekan: 'Salah',
 				})
@@ -100,6 +107,7 @@ class HeaderContent extends React.Component{
 				percent: this.state.percent + 10,
 				angka1: Math.floor(Math.random() * 100),
 				angka2: Math.floor(Math.random() * 100),
+				jawabSementara: 0,
 				soal: this.state.soal + 1,
 			})
 		}
@@ -140,15 +148,17 @@ class HeaderContent extends React.Component{
 					    <Header as='h1'>{this.state.angka1} + {this.state.angka2}</Header>
 
 					    <form id="f" onSubmit={(e) => this.cek(e)}>
-					    <Input id="answerHere" autoFocus action={{
+					    <Input id="answerHere" autoComplete="off" autoFocus action={{
 						      color: 'teal',
 						      labelPosition: 'right',
 						      icon: 'send',
 						      content: 'Press Enter to Check',
+						      disabled: this.state.jawabSementara == 0 ? 'disabled' : null,
 						    }} 
 						    placeholder='Answer Here...'
-						    onChange={ (e) => this.setState({jawabSementara: e.target.value}) } />
+						    onKeyUp={ (e) => this.setState({jawabSementara: e.target.value}) } />
 						</form>
+
 						<Header as="h4">Answer: {this.state.pengecekan}</Header> 
 					</div>
 
@@ -158,17 +168,19 @@ class HeaderContent extends React.Component{
 
 			    <br/><br/><br/>
 				<Divider />
-				<div  style={{textAlign: "center"}}>
-				 	<Input autoFocus icon='user' style={{'display': this.state.quiz != 0 ? 'none' : ''}} iconPosition='left' placeholder='Input Nickname' onChange={(e) => this.inputNickname(e)}/> 
+				<div  style={{textAlign: "center"}}>	
+				 	<Input autoFocus icon='user' onKeyPress={event => {
+			                if (event.key === 'Enter') {
+			                  this.start()
+			                }
+			              }} style={{'display': this.state.quiz != 0 ? 'none' : ''}} iconPosition='left' placeholder='Input Nickname' onChange={(e) => this.inputNickname(e)}/> 
 				 	&nbsp;
 					<Button disabled={this.state.nickname == '' ? 'disabled' : null} icon  primary  labelPosition="left" onClick={() => this.state.quiz == 0 || this.state.quiz == 3 ? this.start() : this.state.quiz == 1 ? this.pause() : this.resume() }>
 				      <Icon name= {this.state.quiz === 0 || this.state.quiz == 3 ? 'play' : this.state.quiz === 1 ? 'pause' : this.state.quiz === 2 ? 'play' : ''} />
 				      {this.state.quiz === 0 || this.state.quiz == 3 ? 'Play' : this.state.quiz === 1 ? 'Pause' : this.state.quiz === 2 ? 'Resume' : ''}
-				    </Button>
 			    </div>
-
 			    <br/><br/>
-			    <HighScore data={this.state.highScore} />
+			    {/*<HighScore data={this.state.highScore} />*/}
 			</div>
 		)
 	}
