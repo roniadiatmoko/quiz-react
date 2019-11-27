@@ -178,6 +178,7 @@ class HeaderContent extends React.Component{
 					<Button disabled={this.state.nickname == '' ? 'disabled' : null} icon  primary  labelPosition="left" onClick={() => this.state.quiz == 0 || this.state.quiz == 3 ? this.start() : this.state.quiz == 1 ? this.pause() : this.resume() }>
 				      <Icon name= {this.state.quiz === 0 || this.state.quiz == 3 ? 'play' : this.state.quiz === 1 ? 'pause' : this.state.quiz === 2 ? 'play' : ''} />
 				      {this.state.quiz === 0 || this.state.quiz == 3 ? 'Play' : this.state.quiz === 1 ? 'Pause' : this.state.quiz === 2 ? 'Resume' : ''}
+				    </Button>
 			    </div>
 			    <br/><br/>
 			    {/*<HighScore data={this.state.highScore} />*/}
